@@ -7,19 +7,19 @@
       "source": "KNMI station AMS-001",
       "notes": "Below 40mm threshold. Does not meet Clause 2 weather event definition."
     },
+    "2024-03-11": {
+      "precipitation_mm": 39.1,
+      "wind_kmh": 88,
+      "conditions": "Heavy rain, near-storm winds",
+      "source": "KNMI station AMS-001",
+      "notes": "Both thresholds just below limit. Neither condition technically met."
+    },
     "2024-09-22": {
       "precipitation_mm": 52.1,
       "wind_kmh": 67,
       "conditions": "Severe rainfall, strong winds",
       "source": "KNMI station AMS-001",
       "notes": "Exceeds 40mm threshold. Meets Clause 2 weather event definition."
-    },
-    "2024-03-11": {
-      "precipitation_mm": 39.1,
-      "wind_kmh": 88,
-      "conditions": "Heavy rain, near-storm winds",
-      "source": "KNMI station AMS-001",
-      "notes": "Both thresholds just below limit. Genuinely ambiguous. No extreme weather condition technically met."
     },
     "2024-11-03": {
       "precipitation_mm": 22.4,
@@ -29,22 +29,6 @@
       "notes": "No weather event. Weather irrelevant to this claim."
     }
   },
-  "Rotterdam": {
-    "2023-11-08": {
-      "precipitation_mm": 18.3,
-      "wind_kmh": 41,
-      "conditions": "Light rain, moderate winds",
-      "source": "KNMI station RTD-002",
-      "notes": "No weather event. Burst pipe cause not weather-related."
-    },
-    "2023-05-20": {
-      "precipitation_mm": 6.1,
-      "wind_kmh": 22,
-      "conditions": "Light shower, calm",
-      "source": "KNMI station RTD-002",
-      "notes": "No weather event. Contractor work completed 2023-05-08. Weather irrelevant."
-    }
-  },
   "Utrecht": {
     "2022-08-03": {
       "precipitation_mm": 8.2,
@@ -52,13 +36,6 @@
       "conditions": "Dry, light breeze",
       "source": "KNMI station UTC-003",
       "notes": "No weather event. Clean claim baseline."
-    },
-    "2024-01-17": {
-      "precipitation_mm": 12.4,
-      "wind_kmh": 108,
-      "conditions": "Dry storm, exceptional wind gusts",
-      "source": "KNMI station UTC-003",
-      "notes": "Wind exceeds 90km/h threshold. Supports structural storm damage despite low precipitation."
     }
   }
 }

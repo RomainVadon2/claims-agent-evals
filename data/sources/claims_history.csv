@@ -1,15 +1,11 @@
-claimant_id,property_id,claim_id,claim_date,damage_type,amount_eur,outcome,notes
-CLM001,PROP001,CLAIM-2022-0315,2022-03-15,water_damage,12500,approved,Burst pipe in basement. Repaired within 48h of discovery.
-CLM001,PROP001,CLAIM-2023-1108,2023-11-08,water_damage,18200,approved,Second burst pipe incident. Same basement location.
-CLM001,PROP001,CLAIM-2024-0156,2024-09-22,water_damage,31400,pending,Third water damage claim same property. Repeat claims condition triggered.
-CLM002,PROP002,CLAIM-2021-0610,2021-06-10,structural,8900,approved,Roof damage following storm. Wind speeds confirmed at 95km/h.
-CLM002,PROP002,CLAIM-2023-0724,2023-11-08,water_damage,6200,approved,Water ingress following roof repair by licensed contractor. Clause 4 applicable.
-CLM003,PROP003,CLAIM-2020-1119,2020-11-19,water_damage,4200,rejected,Claim below €5000 threshold. Not eligible under Clause 1.
-CLM003,PROP003,CLAIM-2022-0441,2022-08-03,water_damage,9800,approved,Burst pipe. No prior defects documented. Clean claim.
-CLM004,PROP004,CLAIM-2021-0914,2021-09-14,water_damage,15600,rejected,Known plumbing defect documented in 2021-06-01 inspection report. Negligence exclusion applied.
-CLM004,PROP004,CLAIM-2024-0067,2024-01-17,structural,22100,approved,Storm structural damage. Wind 102km/h confirmed. No prior issues.
-CLM005,PROP005,CLAIM-2023-0520,2023-05-20,water_damage,11300,approved,Contractor work completed 2023-05-08. Causal link confirmed by technical assessment.
-CLM005,PROP005,CLAIM-2024-0312,2024-03-11,water_damage,9400,pending,Contractor work completed 2024-02-20. Gradual damage onset disputed. Ambiguous causal link.
-CLM006,PROP006,CLAIM-2023-0704,2023-07-04,water_damage,7800,approved,Clean claim. No prior history. Damage consistent with reported cause.
-CLM007,PROP007,CLAIM-2022-1201,2022-12-01,water_damage,13200,rejected,Reported as burst pipe. Precipitation was 38mm on incident date. Below 40mm threshold but cause disputed.
-CLM007,PROP007,CLAIM-2024-0891,2024-06-15,water_damage,28900,pending,High value claim. Prior claim history. Fraud signals present.
+claimant_id,property_id,claim_id,claim_date,damage_type,amount_eur,outcome,prior_defect_documented,defect_date,notes
+CLM001,PROP001,CLAIM-2022-0315,2022-03-15,water_damage,12500,approved,false,,Burst pipe in basement. Repaired within 48h of discovery.
+CLM001,PROP001,CLAIM-2023-1108,2023-11-08,water_damage,18200,approved,false,,Second burst pipe incident. Same basement location.
+CLM001,PROP001,CLAIM-2024-0156,2024-09-22,water_damage,31400,pending,false,,Third water damage claim same property. Repeat claims condition triggered.
+CLM003,PROP003,CLAIM-2020-1119,2020-11-19,water_damage,4200,rejected,false,,Claim below €5000 threshold. Not eligible under Clause 1.
+CLM003,PROP003,CLAIM-2022-0441,2022-08-03,water_damage,9800,approved,false,,Burst pipe. No prior defects documented. Clean claim.
+CLM005,PROP005,CLAIM-2023-0520,2023-05-20,water_damage,11300,approved,false,,Contractor work completed 2023-05-08. Causal link confirmed by technical assessment.
+CLM005,PROP005,CLAIM-2024-0312,2024-03-11,water_damage,9400,pending,false,,Contractor work completed 2024-02-20. Gradual damage onset disputed. Ambiguous causal link.
+CLM006,PROP006,CLAIM-2023-0704,2023-07-04,water_damage,7800,approved,false,,Clean claim. No prior history. Damage consistent with reported cause.
+CLM007,PROP007,CLAIM-2022-1201,2022-12-01,water_damage,13200,rejected,false,,Reported as burst pipe. Precipitation 38mm on incident date. Below 40mm threshold. Cause disputed.
+CLM007,PROP007,CLAIM-2024-0891,2024-06-15,water_damage,28900,pending,false,,High value claim. Prior claim history. Fraud signals present.
