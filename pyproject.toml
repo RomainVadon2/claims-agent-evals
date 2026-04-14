@@ -1,0 +1,16 @@
+[project]
+name = "claims-agent-evals"
+version = "0.1.0"
+description = "Eval-driven development workshop for a multi-tool claims investigation agent"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=1.0.0",
+    "langgraph>=0.2.0",
+    "langsmith>=0.2.0",
+    "langchain-openai>=0.2.0",
+    "agentevals>=0.0.9",
+    "openevals>=0.1.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "jupyter>=1.0.0",
+]
