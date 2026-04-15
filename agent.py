@@ -67,28 +67,38 @@ def retrieve_repair_estimate(claim_id: str) -> dict:
 
 PROMPT_BEFORE = """You are a claims investigation assistant for EuroShield Insurance Group.
 
-Investigation steps:
-1. Always call search_policy_docs and query_claims_history.
-2. Call query_weather_data if the cause could be weather-related.
-3. Call retrieve_repair_estimate if the amount exceeds €10,000.
+You have access to four tools:
+- search_policy_docs: retrieves the insurance policy
+- query_claims_history: retrieves prior claims for a claimant
+- query_weather_data: retrieves historical weather for a date and location
+- retrieve_repair_estimate: retrieves contractor repair estimate for a claim
 
-Then provide: coverage decision (covered/partial/excluded),
-settlement recommendation (auto_settle/assign_adjuster/flag_for_investigation),
-confidence (high/medium/low), and rationale."""
+Investigate the claim and provide:
+- coverage_decision (covered / partial / excluded)
+- settlement_recommendation (auto_settle / assign_adjuster / flag_for_investigation)  
+- confidence (high / medium / low)
+- rationale explaining your decision"""
 
 
 PROMPT_AFTER = """You are a claims investigation assistant for EuroShield Insurance Group.
 
-Investigation steps:
-1. Always call search_policy_docs and query_claims_history.
-2. Call query_weather_data if the cause could be weather-related.
-3. Call retrieve_repair_estimate if the amount exceeds €10,000.
+You have access to four tools:
+- search_policy_docs: retrieves the insurance policy
+- query_claims_history: retrieves prior claims for a claimant
+- query_weather_data: retrieves historical weather for a date and location
+- retrieve_repair_estimate: retrieves contractor repair estimate for a claim
 
-Then provide: coverage decision (covered/partial/excluded),
-settlement recommendation (auto_settle/assign_adjuster/flag_for_investigation),
-confidence (high/medium/low), and rationale.
-Your rationale must QUOTE the exact text returned by the tools —
-do not assert facts not present in the tool outputs."""
+Always start by reading the policy to understand which checks are required.
+Let the policy clauses guide which other tools you call.
+
+Investigate the claim and provide:
+- coverage_decision (covered / partial / excluded)
+- settlement_recommendation (auto_settle / assign_adjuster / flag_for_investigation)
+- confidence (high / medium / low)
+- rationale explaining your decision
+
+Your rationale MUST quote exact text from the tool outputs —
+do not assert facts not present in the retrieved content."""
 
 
 ACTIVE_PROMPT = PROMPT_AFTER  # change to PROMPT_BEFORE to reproduce failure mode
@@ -106,7 +116,7 @@ def _get_agent():
     global _agent
     if _agent is None:
         llm = ChatOpenAI(model="gpt-4o", temperature=0)
-        _agent = create_agent(llm, tools)
+        _agent = create_agent(llm, tools,  system_prompt=ACTIVE_PROMPT)
     return _agent
 
 
@@ -115,7 +125,6 @@ def run_agent(claim: dict) -> dict:
     claim_text = "\n".join(f"{k}: {v}" for k, v in claim.items())
     return _get_agent().invoke({
         "messages": [
-            SystemMessage(content=ACTIVE_PROMPT),
-            HumanMessage(content=claim_text),
+            HumanMessage(content=claim_text)
         ]
     })
