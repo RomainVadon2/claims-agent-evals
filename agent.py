@@ -2,7 +2,7 @@
 Claims investigation agent.
 
 Tools load data from data/sources/ via data/loaders.py.
-The agent uses create_react_agent with a system prompt.
+The agent uses create_agent (LangChain ReAct) with a system prompt.
 
 Workshop demo: swap ACTIVE_PROMPT between PROMPT_BEFORE and PROMPT_AFTER
 to reproduce the hallucination failure mode and show the fix.
@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 
 from data.loaders import (
     load_claims_history,
@@ -106,7 +106,7 @@ def _get_agent():
     global _agent
     if _agent is None:
         llm = ChatOpenAI(model="gpt-4o", temperature=0)
-        _agent = create_react_agent(llm, tools)
+        _agent = create_agent(llm, tools)
     return _agent
 
 
