@@ -2,7 +2,7 @@
 Grounding evaluator + eval runner.
 
 Checks whether the agent's final response is supported by what the tools
-actually returned — not facts the LLM invented.
+actually returned, not facts the LLM invented.
 
 Before/after story:
   - Run with PROMPT_BEFORE in agent.py → low grounding scores
@@ -106,7 +106,7 @@ def grounding_evaluator(run, example) -> dict:
 def push_dataset(client: Client) -> None:
     existing = {d.name for d in client.list_datasets()}
     if DATASET_NAME in existing:
-        print(f"Dataset '{DATASET_NAME}' already exists — skipping.")
+        print(f"Dataset '{DATASET_NAME}' already exists, skipping.")
         return
     dataset = client.create_dataset(dataset_name=DATASET_NAME)
     for claim in CLAIM_INPUTS:
@@ -134,5 +134,5 @@ if __name__ == "__main__":
     scores = [r["evaluation_results"]["results"][0].score for r in results]
     labels = {1.0: "GROUNDED", 0.5: "PARTIAL", 0.0: "HALLUCINATED"}
     for claim, score in zip(CLAIM_INPUTS, scores):
-        print(f"  {claim['claim_id']}  →  {labels.get(score, score)}")
+        print(f"  {claim['claim_id']}  ->  {labels.get(score, score)}")
     print(f"\nMean: {sum(scores)/len(scores):.2f}")

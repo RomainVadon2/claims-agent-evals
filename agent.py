@@ -62,8 +62,8 @@ def retrieve_repair_estimate(claim_id: str) -> dict:
 # ---------------------------------------------------------------------------
 # WORKSHOP NOTE: swap ACTIVE_PROMPT to demo the before/after grounding story.
 #
-# PROMPT_BEFORE — no instruction to cite retrieved content → hallucinated rationale
-# PROMPT_AFTER  — must quote tool outputs → grounded rationale
+# PROMPT_BEFORE: no instruction to cite retrieved content, hallucinated rationale
+# PROMPT_AFTER: must quote tool outputs, grounded rationale
 
 PROMPT_BEFORE = """You are a claims investigation assistant for EuroShield Insurance Group.
 
@@ -97,8 +97,8 @@ Investigate the claim and provide:
 - confidence (high / medium / low)
 - rationale explaining your decision
 
-Your rationale MUST quote exact text from the tool outputs —
-do not assert facts not present in the retrieved content."""
+Your rationale MUST quote exact text from the tool outputs.
+Do not assert facts not present in the retrieved content."""
 
 
 ACTIVE_PROMPT = PROMPT_AFTER  # change to PROMPT_BEFORE to reproduce failure mode
@@ -109,7 +109,7 @@ ACTIVE_PROMPT = PROMPT_AFTER  # change to PROMPT_BEFORE to reproduce failure mod
 
 tools = [search_policy_docs, query_claims_history, query_weather_data, retrieve_repair_estimate]
 
-_agent = None  # lazy init — avoids requiring OPENAI_API_KEY at import time
+_agent = None  # lazy init, avoids requiring OPENAI_API_KEY at import time
 
 
 def _get_agent():
