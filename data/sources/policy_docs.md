@@ -51,7 +51,9 @@ exclusion regardless of whether a formal repair order was raised.
 Where a policyholder submits **two or more claims of the same damage type**
 within a **36-month rolling period**, the insurer reserves the right to
 apply an additional excess of **20% of the claim value** on the second and
-subsequent claims. The insurer further reserves the right to commission a
+subsequent claims. **Only approved claims count toward this condition,
+rejected claims do not trigger the repeat claims excess.** 
+The insurer further reserves the right to commission a
 structural survey at the policyholder's expense before processing any third
 claim of the same type within the same period. This clause applies per
 property address and is not transferable across portfolio properties.
