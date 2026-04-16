@@ -8,4 +8,4 @@ CLM005,PROP005,CLAIM-2023-0520,2023-05-20,water_damage,11300,approved,false,,Con
 CLM005,PROP005,CLAIM-2024-0312,2024-03-11,water_damage,9400,pending,false,,Contractor work completed 2024-02-20. Gradual damage onset disputed. Ambiguous causal link.
 CLM006,PROP006,CLAIM-2023-0704,2023-07-04,water_damage,7800,approved,false,,Clean claim. No prior history. Damage consistent with reported cause.
 CLM007,PROP007,CLAIM-2022-1201,2022-12-01,water_damage,13200,rejected,false,,Reported as burst pipe. Precipitation 38mm on incident date. Below 40mm threshold. Cause disputed.
-CLM007,PROP007,CLAIM-2024-0891,2024-06-15,water_damage,28900,pending,false,,High value claim. Prior claim history. Fraud signals present.
+CLM007,PROP007,CLAIM-2024-0891,2024-06-15,water_damage,28900,pending,false,,High value claim. Prior claim history.
