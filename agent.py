@@ -62,7 +62,7 @@ def retrieve_repair_estimate(claim_id: str) -> dict:
 # PROMPT_BEFORE: no instruction to cite retrieved content, hallucinated rationale
 # PROMPT_AFTER: must quote tool outputs, grounded rationale
 
-PROMPT_BEFORE = """You are a claims investigation assistant for EuroShield Insurance Group.
+PROMPT_BEFORE = """You are a claims investigation assistant for an insurance group.
 
 You have access to four tools:
 - search_policy_docs: retrieves the insurance policy
@@ -72,12 +72,12 @@ You have access to four tools:
 
 Investigate the claim and provide:
 - coverage_decision (covered / partial / excluded)
-- settlement_recommendation (auto_settle / assign_adjuster / flag_for_investigation)  
+- settlement_recommendation (auto_settle / assign_adjuster / flag_for_investigation)
 - confidence (high / medium / low)
 - rationale explaining your decision"""
 
 
-PROMPT_AFTER = """You are a claims investigation assistant for EuroShield Insurance Group.
+PROMPT_AFTER = """You are a claims investigation assistant for an insurance group.
 
 You have access to four tools:
 - search_policy_docs: retrieves the insurance policy
@@ -94,8 +94,23 @@ Investigate the claim and provide:
 - confidence (high / medium / low)
 - rationale explaining your decision
 
-Your rationale MUST quote exact text from the tool outputs.
-Do not assert facts not present in the retrieved content."""
+Rules for your rationale:
+1. Quote exact text from tool outputs to support each claim.
+2. If tool outputs contain contradictory findings, explicitly acknowledge
+   the contradiction and reflect it in your coverage decision.
+3. Never assert a coverage decision that goes beyond what the retrieved
+   evidence confirms. If evidence is inconclusive, your coverage decision
+   must be 'partial' or 'excluded', not 'covered'.
+4. If the policy does not address a specific scenario, quote the relevant
+   clause verbatim and state that the scenario is not explicitly covered
+   by the policy text — do not infer an interpretation."""
+
+
+PROMPT_CONVERSATIONAL = PROMPT_AFTER + """
+
+Before calling any tools, check that the following fields are present in
+the conversation: claimant ID, incident date, incident location, and estimated
+amount. If any are missing, ask for them before proceeding."""
 
 
 ACTIVE_PROMPT = PROMPT_AFTER  # change to PROMPT_BEFORE to reproduce failure mode
@@ -118,10 +133,21 @@ def _get_agent():
 
 
 def run_agent(claim: dict) -> dict:
-    """Run the agent on a claim input dict. Returns the full agent output."""
+    """Run the agent on a structured claim dict. Returns the full agent output."""
     claim_text = "\n".join(f"{k}: {v}" for k, v in claim.items())
-    return _get_agent().invoke({
-        "messages": [
-            HumanMessage(content=claim_text)
-        ]
-    })
+    return _get_agent().invoke({"messages": [HumanMessage(content=claim_text)]})
+
+
+def make_chat_agent(prompt: str = PROMPT_CONVERSATIONAL):
+    """Return an agent with an InMemorySaver checkpointer for conversational use.
+
+    Each conversation thread is identified by a thread_id in the config:
+        config = {"configurable": {"thread_id": "session-1"}}
+        agent.invoke({"messages": [HumanMessage(content="...")]}, config=config)
+
+    Call invoke with the same config on each turn, the agent replays the
+    full thread history automatically, no manual history management needed.
+    """
+    from langgraph.checkpoint.memory import InMemorySaver
+    llm = ChatOpenAI(model="gpt-4o", temperature=0.5)
+    return create_agent(llm, tools, system_prompt=prompt, checkpointer=InMemorySaver())
